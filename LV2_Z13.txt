@@ -1,0 +1,109 @@
+#include <stdio.h>
+
+int main() {
+    int i,counter,broj,suma,flag,suma2;
+    char c;
+	printf("Unesite pogotke za Sabita: ");
+    counter=0;
+    suma=0;
+    flag=0;
+    while(1){
+        if(flag==1)scanf(" %c", &c);
+        else scanf("%c", &c);
+        if(c=='.'){
+            if(counter!=9){
+                printf("Neispravni ulazni podaci.\n");
+                suma=0;
+                counter=0;
+                flag=0;
+                printf("Unesite pogotke za Sabita: ");
+                continue;
+            }
+            break;
+        }
+        if(c!='X' && c!='O' && c!='I'){
+            scanf("%d", &broj);
+            flag=1;
+            counter++;
+            if(c=='D')suma+=broj*2;
+            else if(c=='T')suma+=broj*3;
+            else if(c=='S')suma+=broj;
+            else counter--;
+        }
+        else {
+            if(c=='O') suma+=25;
+            if(c=='I') suma+=50;
+            counter++;
+        }
+        
+    }
+    
+    suma2=0;
+    counter=0;
+    printf("Unesite pogotke za Fadilu: ");
+    while(1){
+        if(flag==1)scanf(" %c", &c);
+        else scanf("%c", &c);
+        if(c=='.'){
+            if(counter!=9){
+                printf("Neispravni ulazni podaci.\n");
+                suma2=0;
+                counter=0;
+                flag=0;
+                printf("Unesite pogotke za Fadilu: ");
+                continue;
+            }
+            break;
+        }
+        if(c!='X' && c!='O' && c!='I'){
+            scanf("%d", &broj);
+            flag=1;
+            counter++;
+            if(c=='D')suma2+=broj*2;
+            else if(c=='T')suma2+=broj*3;
+            else if(c=='S')suma2+=broj;
+            else counter--;
+        }
+        else {
+            if(c=='O') suma2+=25;
+            if(c=='I') suma2+=50;
+            counter++;
+        }
+        
+    }
+    
+
+    if(suma2>301){
+        if(suma>301){
+            printf("Oba igraca su premasila potrebni broj poena, rezultat je nerijesen.");
+        }
+        else{
+            printf("Sabit je ostvario %d poena, Fadila je premasila potrebni broj poena. ", suma);
+            printf("Pobjednik je Sabit, kojem je ostalo jos %d poena do pobjede.",301-suma); 
+        }
+    }
+    else{
+        if(suma>301){
+            printf("Sabit je premasio potrebni broj poena, Fadila je ostvarila %d poena. ", suma2);
+            printf("Pobjednik je Fadila, kojoj je ostalo jos %d poena do pobjede.",301-suma2);
+        }
+        else{
+            if(suma2>suma){
+                printf("Sabit je ostvario %d poena, Fadila je ostvarila %d poena. ", suma,suma2);
+                printf("Pobjednik je Fadila, kojoj je ostalo jos %d poena do pobjede.",301-suma2);
+            }
+            else if(suma>suma2){
+                printf("Sabit je ostvario %d poena, Fadila je ostvarila %d poena. ", suma,suma2);
+                printf("Pobjednik je Sabit, kojem je ostalo jos %d poena do pobjede.",301-suma);
+            }
+            else if(suma==suma2){
+                 printf("Sabit je ostvario %d poena, Fadila je ostvarila %d poena. ", suma,suma2);
+                 printf("Rezultat je nerijesen.");
+            }
+        }
+    }
+
+
+
+	return 0;
+}

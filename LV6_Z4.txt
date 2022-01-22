@@ -1,0 +1,20 @@
+#include <stdio.h>
+
+int maxprost(int *niz, int vel){
+    int max=0,i,j,prost;
+    for(i=0;i<vel;i++){
+        if(*(niz+i)<=1)continue;
+        prost=1;
+        for(j=2;j<*(niz+i);j++){
+            if(*(niz+i)%j==0){
+                prost=0;
+                break;
+            }
+        }
+        if(prost==1&&*(niz+i)>max)max=*(niz+i);
+    }
+    return max;
+}
+int main() {
+	return 0;
+}

@@ -1,0 +1,56 @@
+#include <stdio.h>
+void crtanje(int niz[], int vel){
+    int i,j;
+    if(vel%2!=0) return;
+    for(i=0;i<vel-1;i=i+2){ 
+        if(*(niz+i)<=0||*(niz+i+1)<=0) return;
+        
+        for(j=0;j<*(niz+i+1);j++)printf("%c",*(niz+i));
+        //printf("%d ",*(niz+i+1));
+    }
+}
+void pravougaonik(int a,int b, int znak){
+    int i,niz[100];
+    int counter;
+    niz[0]=znak;
+    niz[1]=a;
+    niz[2]=10;
+    niz[3]=1;
+    counter=4;
+    for(i=0;i<b-2;i++){
+        niz[counter]=znak;
+        counter++;
+        niz[counter]=1;
+        counter++;
+        if(a-2>0){
+            niz[counter]=' ';
+            counter++;
+            niz[counter]=a-2;
+            counter++;
+        }
+        niz[counter]=znak;
+        counter++;
+        niz[counter]=1;
+        counter++;
+        niz[counter]=10;
+        counter++;
+        niz[counter]=1;
+        counter++;
+    }
+    if(b-1>0){
+        niz[counter]=znak;
+        counter++;
+        niz[counter]=a;
+        counter++;
+    }
+    crtanje(niz,counter);
+}
+int main() {
+    int a,b;
+	printf("Unesite broj a: ");
+    scanf("%d", &a);
+    printf("Unesite broj b: ");
+    scanf("%d", &b);
+    pravougaonik(a,b,'*');
+    return 0;
+}

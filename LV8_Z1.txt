@@ -1,0 +1,22 @@
+#include <stdio.h>
+struct Grad{
+    char naziv[20];
+    int pozivni_broj;
+};
+
+void preslozi_pozivni(struct Grad *g, int vel, int poz){
+    int i,counter=0,j;
+    for(i=0;i<vel;i++){
+        if(g[i].pozivni_broj==poz){
+            struct Grad gr=g[i];
+            for(j=i;j>counter;j--){
+                g[j]=g[j-1];
+            }
+            g[counter]=gr;
+            counter++;
+        }
+    }
+}
+int main() {
+	return 0;
+}

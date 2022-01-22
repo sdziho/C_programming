@@ -1,0 +1,24 @@
+#include <stdio.h>
+
+int main() {
+    int sati,minute,dani,iznad18;
+    float pas,meso,macka,kornjaca;
+	printf("Unesite trenutno vrijeme (hh:mm): ");
+    scanf("%d:%d", &sati, &minute);
+    printf("Unesite redni broj dana u sedmici: ");
+    scanf("%d",&dani);
+    pas=(sati+minute+dani)/34.0;
+    meso=pas/3.0;
+    iznad18=7*dani;
+    macka=2*sati/40.0+dani/7.0;
+    kornjaca=(float)(7+sati)/(dani+154);
+    if(sati<8)  printf("Ljubimci ne smiju jesti prije 8:00h!");
+    else{
+        if(sati<18) printf("Pas ce pojesti %.2fkg hrane, od toga %.2fkg mesa i %.2fkg ostale hrane.\n",pas,meso,pas-meso);
+        else printf("Pas ce dobiti %d kreker/a.\n",iznad18);
+        printf("Macka ce pojesti %.2fkg hrane.\n",macka);
+        printf("Kornjaca ce pojesti %.2fkg hrane.\n",kornjaca);
+        if(dani==4) printf("Kornjaca ce dobiti i kalcij posto je cetvrtak.");
+    }
+    return 0;
+}

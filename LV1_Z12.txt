@@ -1,0 +1,23 @@
+#include <stdio.h>
+
+int main() {
+    double deg,degPrint,var;
+    int m,s,st;
+	printf("Unesite stepene: ");
+    scanf("%lf", &deg);
+    degPrint=deg;
+    
+    if(deg<-1000||deg>1000){
+        printf("Unos nije ispravan!");
+        return 0;
+    }
+    if(deg<0) {
+        deg=-((int)(deg*(-1)) % 360)-(deg*(-1)-(int)(deg*(-1)))+360;
+    }
+    if(deg>360) deg=((int)deg % 360)+(deg-(int)deg);
+    st=(int) deg;
+    m=(int)((deg-st)*60.0);
+    s=(int)(((deg-st)*60.0-m)*60.0);
+    printf("%g = %d^ %d' %d''",degPrint,st,m,s);
+	return 0;
+}

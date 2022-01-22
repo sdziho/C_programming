@@ -1,0 +1,34 @@
+#include <stdio.h>
+
+int main() {
+    int c,flag,count1,count2,count3;
+	FILE* ulaz=fopen("index.html","r");
+    if(ulaz==NULL){
+        printf("Datoteka index.html ne postoji");
+        return 0;
+    }
+    FILE* index=fopen("index.txt","w");
+    do{
+        c=fgetc(ulaz);
+        while(c=='<'){
+            while(c!='>'&&c!=EOF)c=fgetc(ulaz);
+            if(c==EOF)break;
+            c=fgetc(ulaz);
+        }
+        while(c=='&'){
+            while(c!=';')c=fgetc(ulaz);
+            c=fgetc(ulaz);
+            while(c=='<'){
+                while(c!='>'&&c!=EOF)c=fgetc(ulaz);
+                if(c==EOF)break;
+                c=fgetc(ulaz);
+            }
+        }
+        if(c!=EOF&&c!='<'&&c!='&')fputc(c,index);
+        
+    }while(c!=EOF);
+
+    fclose(ulaz);
+    fclose(index);
+	return 0;
+}

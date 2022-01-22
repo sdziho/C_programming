@@ -1,0 +1,25 @@
+#include <stdio.h>
+
+int main() {
+	int counter,prezadnji,zadnji,i,broj,times;
+    counter=0;
+    times=0;
+    prezadnji=0;
+    zadnji=0;
+    broj=0;
+    printf("Unesite brojeve (0 za kraj): \n");
+    while(1){
+        prezadnji=zadnji;
+        zadnji=broj;
+        scanf("%d", &broj);
+        times++;
+        if(broj==0)break;
+        if(zadnji==prezadnji-broj&&times>=3) counter++;
+        
+    }
+    if(counter==0) printf("Niti jedan broj ne zadovoljava uslov.");
+    else if(counter==1) printf("%d broj zadovoljava uslov.",counter);
+    else if(counter%10==2 || counter%10==3 || counter%10==4) printf("%d broja zadovoljava uslov.",counter);
+    else printf("%d brojeva zadovoljava uslov.",counter);
+	return 0;
+}

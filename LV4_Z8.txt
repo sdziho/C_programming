@@ -1,0 +1,66 @@
+#include <stdio.h>
+
+int main() {
+    int n,i,j,mat[50][50],k,broj,sirina,visina,izbaceno;
+	printf("Unesite dimenziju matrice: ");
+    scanf("%d", &n);
+    sirina=n;
+    visina=n;
+    for(i=0;i<visina;i++){
+        printf("\nUnesite elemente %d. reda: ",i+1);
+        for(j=0;j<sirina;j++) {
+            scanf("%d", &broj);
+            mat[i][j]=broj;
+            //printf("%d ", broj);
+        }
+    }
+    
+    if(n%2==0){    
+        for(i=0;i<visina/2;i=i+1){
+            izbaceno=0;
+            for(j=0;j<sirina;j=j+1){
+                if(i==sirina-j-1&&izbaceno==0){
+                    for(k=j;k<n-1;k++) mat[i][k]=mat[i][k+1]; 
+                    izbaceno=1;
+                    j=-1;
+                }
+                if(i==j&&izbaceno==1){
+                    for(k=j;k<n-2;k++) mat[i][k]=mat[i][k+1]; 
+                    break;
+                }
+            }
+        }
+        for(i=visina/2;i<visina;i=i+1){
+            izbaceno=0;
+            for(j=0;j<sirina;j=j+1){
+                if(i==j&&izbaceno==0){
+                    for(k=j;k<n-1;k++) mat[i][k]=mat[i][k+1];
+                    izbaceno=1;
+                    j=-1; 
+                }
+                if(i==sirina-j-1&&izbaceno==1){
+                    for(k=j;k<n-2;k++) mat[i][k]=mat[i][k+1]; 
+                    break;
+                }
+                
+            }
+        }
+    }
+    else{
+        for(i=0;i<visina;i=i+1){
+            for(j=0;j<sirina;j++){
+                if(i==j){
+                    for(k=j;k<n-1;k++) mat[i][k]=mat[i][k+1];
+                }
+            }
+        }
+    }
+    sirina--;
+    if(n%2==0) sirina--;
+    printf("\nMatrica nakon izbacivanja dijagonale: \n");
+    for(i=0;i<visina;i++){
+        for(j=0;j<sirina;j++) printf("%-5d",mat[i][j]);
+        printf("\n");
+    }
+	return 0;
+}

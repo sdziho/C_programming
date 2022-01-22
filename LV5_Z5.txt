@@ -1,0 +1,15 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+
+int Random(int a, int b){
+    int broj;
+    broj=rand()%(b-a)+a;
+    return broj;
+}
+
+int main() {
+    srand((unsigned int) time(NULL));
+	printf("%d", Random(4,6));
+	return 0;
+}

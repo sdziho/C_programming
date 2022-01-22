@@ -1,0 +1,107 @@
+#include <stdio.h>
+#define SEG 4
+
+int main() {
+    int choice,a,b,rez,i,j,cifra1,cifra2;
+    char jedan[SEG+1][SEG*2],dva[SEG+1][SEG*2],tri[SEG+1][SEG*2]={{' '}},cetiri[SEG+1][SEG*2]={{' '}};
+    char pet[SEG+1][SEG*2]={{' '}},sest[SEG+1][SEG*2]={{' '}},sedam[SEG+1][SEG*2]={{' '}},osam[SEG+1][SEG*2]={{' '}};
+    char devet[SEG+1][SEG*2]={{' '}}, nula[SEG+1][SEG*2];
+    char e[SEG+1][SEG+1],r[SEG+1][SEG+1];
+    
+    for(i=0;i<SEG+1;i++){
+        for(j=0;j<SEG+1;j++){
+            if(j==0||i==0||i==SEG||j==SEG) nula[i][j]='*';
+            else nula[i][j]=' ';
+            if(j==SEG) jedan[i][j]='*';
+            else jedan[i][j]=' ';
+            if(i==0||(j==SEG&&i<=SEG/2)||(j==0&&i>SEG/2)||i==SEG||i==SEG/2) dva[i][j]='*';
+            else dva[i][j]=' ';
+            if(i==0||i==SEG/2||i==SEG||j==SEG) tri[i][j]='*';
+            else tri[i][j]=' ';
+            if(i==0||(j==0&&i<=SEG/2)||(j==SEG&&i>SEG/2)||i==SEG||i==SEG/2) pet[i][j]='*';
+            else pet[i][j]=' ';
+            if(j==0||i==0||(j==0&&i<=SEG/2)||(j==SEG&&i>SEG/2)||i==SEG||i==SEG/2) sest[i][j]='*';
+            else sest[i][j]=' ';
+            if(j==SEG||i==0) sedam[i][j]='*';
+            else sedam[i][j]=' ';
+            if(j==SEG||i==SEG||i==SEG/2||j==0||i==0) osam[i][j]='*';
+            else osam[i][j]=' ';
+            if(j==SEG||i==SEG||i==SEG/2||(j==0&&i<SEG/2)||i==0) devet[i][j]='*';
+            else devet[i][j]=' ';
+            if((j==0&&i<SEG/2)||j==SEG||i==SEG/2) cetiri[i][j]='*';
+            else cetiri[i][j]=' ';
+            if(i==0||i==SEG/2||i==SEG||j==0) e[i][j]='*';
+            else e[i][j]=' ';
+            if((j==0&&i>SEG/2)||i==SEG/2) r[i][j]='*';
+            else r[i][j]=' ';
+            
+        }
+    }
+    while(1){
+        printf("Odaberite cjelobrojnu operaciju: \n[1] Sabiranje\n[2] Oduzimanje\n[3] Mnozenje\n[4] Dijeljenje\n[5] Izlaz iz programa\n>>\n");
+        scanf("%d", &choice);
+        if(choice==1){printf("[1] Sabiranje\n");}
+        else if(choice==2){printf("[2] Oduzimanje\n");}
+        else if(choice==3){printf("[3] Mnozenje\n");}
+        else if(choice==4){printf("[4] Dijeljenje\n");}
+        else if(choice==5)break;
+        else continue;
+        printf("Unesite operande: ");
+        scanf("%d %d", &a,&b);
+        //&&a<100&&a>=0&&b<100&&b>=0
+        if(choice==1)rez=a+b;
+        else if(choice==2)rez=a-b; 
+        else if(choice==3)rez=a*b;
+        else if(choice==4){
+            if(b==0) rez=-1;
+            else rez=a/b;
+        }
+        else continue;
+        if(rez>100||rez<0){
+            cifra1=-1;
+            cifra2=-2;  
+        }
+        else{
+            cifra1=rez%10;
+            cifra2=(rez/10)%10;
+        }
+        for(i=0;i<=SEG;i++){
+            for(j=0;j<=SEG*4;j++){ 
+                if(j>SEG&&j<3*SEG){ 
+                    printf(" ");
+                    continue;
+                }
+                if(cifra2==1&&j<=SEG)printf("%c",jedan[i][j]);
+                if(cifra2==2&&j<=SEG)printf("%c",dva[i][j]);
+                if(cifra2==3&&j<=SEG)printf("%c",tri[i][j]);
+                if(cifra2==4&&j<=SEG)printf("%c", cetiri[i][j]);
+                if(cifra2==5&&j<=SEG)printf("%c",pet[i][j]);
+                if(cifra2==6&&j<=SEG)printf("%c",sest[i][j]);
+                if(cifra2==7&&j<=SEG)printf("%c",sedam[i][j]);
+                if(cifra2==8&&j<=SEG)printf("%c",osam[i][j]);
+                if(cifra2==9&&j<=SEG)printf("%c",devet[i][j]);
+                if(cifra2==0&&j<=SEG)printf("%c",nula[i][j]);
+                if(cifra2==-2&&j<=SEG)printf("%c",e[i][j]);
+
+                if(cifra1==1&&j-SEG*3>=0)printf("%c",jedan[i][j-SEG*3]);
+                if(cifra1==2&&j-SEG*3>=0)printf("%c",dva[i][j-SEG*3]);
+                if(cifra1==3&&j-SEG*3>=0)printf("%c",tri[i][j-SEG*3]);
+                if(cifra1==4&&j-SEG*3>=0)printf("%c", cetiri[i][j-SEG*3]);
+                if(cifra1==5&&j-SEG*3>=0)printf("%c",pet[i][j-SEG*3]);
+                if(cifra1==6&&j-SEG*3>=0)printf("%c",sest[i][j-SEG*3]);
+                if(cifra1==7&&j-SEG*3>=0)printf("%c",sedam[i][j-SEG*3]);
+                if(cifra1==8&&j-SEG*3>=0)printf("%c",osam[i][j-SEG*3]);
+                if(cifra1==9&&j-SEG*3>=0)printf("%c",devet[i][j-SEG*3]);
+                if(cifra1==0&&j-SEG*3>=0)printf("%c",nula[i][j-SEG*3]);
+                if(cifra1==-1&&j-SEG*3>=0)printf("%c",r[i][j-SEG*3]);
+
+                
+            } 
+        printf("\n");
+        }
+    }
+    
+    
+    
+	return 0;
+}

@@ -1,0 +1,47 @@
+#include <stdio.h>
+
+struct Planina{
+    char naziv[30];
+    int visina;
+};
+
+int ucitaj(struct Planina *planine, int vel ){
+    int i=0;
+    FILE* ulaz=fopen("ulaz.txt","r");
+    if(ulaz==NULL){
+        printf("Pogresan unos");
+        return  0;
+    }
+    while(i<vel&&fscanf(ulaz,"%s %d\n",planine[i].naziv,&planine[i].visina)==2){
+        if(ferror(ulaz)){
+            printf("Greska ulaz");
+            break;
+        }
+        i++;
+    }
+    fclose(ulaz);
+    //printf("%d",i);
+    return i;
+}
+
+int zapisi(struct Planina *planine, int vel, int max ){
+    int i=0;
+    FILE* izlaz=fopen("izlaz.txt","w");
+    if(izlaz==NULL){
+        printf("Pogresan unos");
+        return  0;
+    }
+    for(i=0;i<vel;i++){
+        if(ferror(izlaz)){
+            printf("Greska izlaz");
+            break;
+        }
+        if(planine[i].visina>max)fprintf(izlaz,"%s\n",planine[i].naziv);
+    }
+    fclose(izlaz);
+    return i;
+}
+int main() {
+	printf("Lekcija 10: Datoteke sa strukturama, Planine");
+	return 0;
+}

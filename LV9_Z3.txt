@@ -1,0 +1,35 @@
+#include <stdio.h>
+void unesi_niz(){
+    int i=0;
+    double niz[100],n;
+    do{
+        scanf("%lf", &n);
+        if(n==-1)break;
+        niz[i]=n;
+        i++;
+    }while(n!=-1);
+    FILE* dat=fopen("niz.bin","wb");
+    if(dat==NULL){
+        printf("Greska pri otvaranju datoteke");
+        return;
+    }
+    int zapisano=fwrite(niz,sizeof(double),i,dat);
+    
+    fclose(dat);
+}
+double srednja_vrijednost(){
+    int i;
+    double suma=0;
+    FILE* dat=fopen("niz.bin","rb");
+    double niz[100];
+    int ucitano=fread(niz,sizeof(double),100,dat);
+    for(i=0;i<ucitano;i++) suma+=niz[i];
+    if(ucitano>0)suma/=ucitano;
+    fclose(dat);
+    return suma;
+}
+int main() {
+	unesi_niz();
+    printf("%g\n", srednja_vrijednost());
+	return 0;
+}

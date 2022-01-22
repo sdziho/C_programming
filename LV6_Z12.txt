@@ -1,0 +1,63 @@
+#include <stdio.h>
+int zamijeni_podniz(int *p1, int *p2, const int *q1, const int *q2, const int *r1, const int *r2){
+    int i,j,flag,razlika,vel1,vel2;
+    int *pomP=p1,*pom2,*zadnji=p2;
+    
+    while(p2-pomP>0){
+        if(*pomP==*q1){
+            flag=1;
+            for(i=1;i<q2-q1;i++){
+                if(*(q1+i)!=*(pomP+i)) flag=0;
+            }
+            if(flag==1){
+                
+                vel1=(q2-q1);
+                vel2=(r2-r1);
+                razlika=vel1-vel2;
+                //ako je r>q
+                if(razlika<0){
+                    pom2=pomP;
+                    while(pom2<p2)pom2++;
+                    pom2-=razlika;
+                    while(pom2>pomP+(q2-q1)){
+                        *pom2=*(pom2+razlika);
+                        pom2--;
+                    }
+                    for(j=0;j<r2-r1;j++){
+                        *(pomP+j)=*(r1+j);
+                    }
+                    p2=p2-razlika;
+                    continue;
+                }
+
+
+
+                for(j=0;j<r2-r1;j++){
+                    *(pomP+j)=*(r1+j);
+                }
+                //ako je q niz veci od r
+                if(razlika>0){
+                    pom2=pomP;
+                    while(pom2<pomP+(r2-r1))pom2++;
+                    //pom2=q2 sada
+                    while(pom2<p2-razlika){
+                        *pom2=*(pom2+razlika);
+                        pom2++;
+                    }
+                    p2=p2-razlika;
+                }
+            }
+        }
+        pomP++;
+    }
+    return (p2-zadnji);
+}
+int main() {
+	int niz1[10]={1,1,2,3,2,1,2,3,3,1};
+    int niz2[3]={1,2,3};
+    int niz3[4]={9,9,9,9};
+    int k=zamijeni_podniz(niz1, niz1+10, niz2, niz2+3, niz3, niz3+4);
+    int i;
+    for(i=0;i<10+k;i++) printf("%d ",niz1[i]);
+	return 0;
+}

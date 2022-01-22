@@ -1,0 +1,29 @@
+#include <stdio.h>
+
+int main() {
+    int c;
+    char x,y;
+    printf("Unesite znakove x i y: ");
+    scanf("%c %c",&x,&y);
+    if(y<x){
+        printf("Pogresan unos");
+        return 0;
+    }
+    FILE* ulaz=fopen("input.txt","r");
+    if(ulaz==NULL){
+        printf("Greska prilikom otvaranje datoteke.");
+        return 0;
+    }
+    FILE* izlaz=fopen("output.txt","w");
+    if(izlaz==NULL){
+        printf("Greska prilikom otvaranje datoteke.");
+        return 0;
+    }
+    do{
+        c=getc(ulaz);
+        if(c>=x&&c<=y) fputc(c,izlaz);
+    }while(c!=EOF);
+	fclose(ulaz);
+    fclose(izlaz);
+	return 0;
+}

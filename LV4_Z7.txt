@@ -1,0 +1,49 @@
+#include <stdio.h>
+
+int main() {
+    int niz[20],n,i,j,visina,sirina,max=0,min=0,broj,counter;
+    char mat[21][60];
+	printf("Unesite clanove niza: \n");
+    n=0;
+    while(1){
+        scanf("%d",&broj);
+        if(broj==999||n>=20) break;
+        if(broj>10||broj<-10){
+            printf("Broj nije u trazenom intervalu");
+            return 0;
+        }
+        
+        if(broj>max) max=broj;
+        if(broj<min&&broj<0) min=broj;
+        niz[n]=broj;
+        
+        n++;
+    }
+    visina=max-min+1;
+    sirina=3*n;
+    broj=0;
+    counter=0;
+    for(i=0;i<visina;i++){
+        for(j=0;j<sirina;j++){
+            if(j%3!=0){
+                if(i==max) mat[i][j]='-';
+                else mat[i][j]=' ';
+            }
+            else {
+                if(i==max-niz[(j)/3])mat[i][j]='*';
+                else if(i==max) mat[i][j]='-';
+                //else if((i<max-niz[j]||i>max)>niz[j]>0) mat[i][j]=' ';
+                else if(i>max-niz[(j)/3]&&i<max&&niz[(j)/3]>0) mat[i][j]='|';
+                else if(i>max&&i<max-niz[(j)/3]&&niz[(j)/3]<0)mat[i][j]='|';
+                else mat[i][j]=' ';
+            }
+        }
+    }
+    //printf("%d %d",max,min);
+    for(i=0;i<visina;i++){
+        for(j=0;j<sirina;j++) printf("%c", mat[i][j]);
+        printf("\n");
+    }
+
+	return 0;
+}

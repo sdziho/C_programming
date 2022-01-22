@@ -1,0 +1,28 @@
+#include <stdio.h>
+
+int analiza(){
+    FILE*ulaz=fopen("brojevi.dat","rb");
+    if(ulaz==NULL){
+        printf("Greska");
+        return 0;
+    }
+    unsigned short niz[100000];
+    int histogram[65536]={0},i,max=0;
+    int ucitano=fread(niz,2,100000,ulaz);
+    for(i=0;i<ucitano;i++){
+        histogram[niz[i]]++;
+    }
+    for(i=1;i<65536;i++){
+        if(histogram[i]>histogram[max])max=i;
+    }
+    int suma=0;
+    for(i=max+1;i<65536;i++){
+        suma+=histogram[i];
+    }
+    fclose(ulaz);
+    return suma;
+}
+int main() {
+    printf("%d",analiza());
+	return 0;
+}

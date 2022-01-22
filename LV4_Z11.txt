@@ -1,0 +1,73 @@
+#include <stdio.h>
+
+int main() {
+    int A[100][100],B[100][100],C[100][100],n,i,j,m,temp,isti;
+    int nizA[200],nizB[200],nizC[200],brojac1,brojac2,brojac3;
+	do{ 
+        printf("Unesite brojeve M i N: ");
+        scanf("%d %d", &m,&n);
+    }while(n<0||n>100||m<0||m>100);
+    printf("Unesite clanove matrice A: ");
+    for(i=0;i<m;i++)
+        for(j=0;j<n;j++) scanf("%d", &A[i][j]);
+    printf("Unesite clanove matrice B: ");
+    for(i=0;i<m;i++)
+        for(j=0;j<n;j++) scanf("%d", &B[i][j]);
+    printf("Unesite clanove matrice C: ");
+    for(i=0;i<m;i++)
+        for(j=0;j<n;j++) scanf("%d", &C[i][j]);
+
+    brojac1=0;
+    for(i=0;i<m;i++){
+        for(j=0;j<n;j++){
+            nizA[brojac1]=A[i][j];
+            brojac1++;
+        }
+    }
+    brojac2=0;
+    for(i=0;i<m;i++){
+        for(j=0;j<n;j++){
+            nizB[brojac2]=B[i][j];
+            brojac2++;
+        }
+    }
+    brojac3=0;
+    for(i=0;i<m;i++){
+        for(j=0;j<n;j++){
+            nizC[brojac3]=C[i][j];
+            brojac3++;
+        }
+    }
+    
+    for(i=0;i<brojac1;i++){
+        for(j=i;j<brojac1;j++){
+            if(nizA[i]<nizA[j]){
+                temp=nizA[i];
+                nizA[i]=nizA[j];
+                nizA[j]=temp;
+            }
+            if(nizB[i]<nizB[j]){
+                temp=nizB[i];
+                nizB[i]=nizB[j];
+                nizB[j]=temp;
+            }
+            if(nizC[i]<nizC[j]){
+                temp=nizC[i];
+                nizC[i]=nizC[j];
+                nizC[j]=temp;
+            }
+        }
+    }
+
+
+    isti=1;
+    for(i=0;i<brojac1;i++){
+        if(nizA[i]!=nizB[i]||nizA[i]!=nizC[i]){
+            isti=0;
+            break;
+        }
+    }
+    if(isti==1) printf("DA");
+    else printf("NE");
+	return 0;
+}

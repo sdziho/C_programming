@@ -1,0 +1,15 @@
+#include <stdio.h>
+int NZD(int a,int b){
+    int min,i,nzd;
+    if(a>b) min=a;
+    else min=b;
+    nzd=1;
+    for(i=1;i<=min;i++){
+        if(a%i==0&&b%i==0) nzd=i;
+    }
+    return nzd;
+}
+int main() {
+	printf("%d",NZD(10,20));
+	return 0;
+}

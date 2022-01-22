@@ -1,0 +1,33 @@
+#include <stdio.h>
+#include <math.h>
+
+long int faktorijel(int n){
+    int i;
+    long int proizvod;
+    proizvod=1;
+    for(i=1;i<=n;i++) proizvod*=i;
+    return proizvod;
+}
+
+double sinus(double x,int n){
+    int i;
+    double suma;
+    suma=0;
+    for(i=1;i<=n;i++){
+        suma+=(pow(-1,i-1)*pow(x,2*i-1))/faktorijel(2*i-1);
+    }
+    return suma;
+}
+int main() {
+    double x,y;
+    int n,i;
+	printf("Unesite x: ");
+    scanf("%lf",&x);
+    printf("\nUnesite n: ");
+    scanf("%d",&n);
+    printf("\nsin(x)=%lf",sin(x));
+    printf("\nsinus(x)=%lf",sinus(x,n));
+    y=(fabs(sinus(x,n)-sin(x)))/(sinus(x,n));
+    printf("\nRazlika: %.6f (%.2f%%).",y,y*100);
+	return 0;
+}

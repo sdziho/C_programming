@@ -1,0 +1,45 @@
+#include <stdio.h>
+
+char *udvostruci_rijec(char *string){
+    char *s=string;
+    char *rijec=string,*pom=string;
+    int i;
+    while(*s=='.'||*s==' '||*s=='\t'||*s==','||*s=='\n'||(*s>='0'&&*s<='9'))s++;
+    rijec=s;
+    while(1){
+        if(*s=='.'||*s==' '||*s=='\t'||*s==','||*s=='\0'||*s=='\n'||(*s>='0'&&*s<='9')){
+            char *kraj=s;
+            int razlika=s-rijec;
+            
+            while(*kraj!='\0')kraj++;
+            *(kraj+razlika+1)='\0';
+            
+            while(kraj>s){
+                *(kraj+razlika+1)=*kraj;
+                kraj--;
+            }
+            //printf("%c\n",*kraj);
+            *(kraj+razlika+1)=*kraj;
+            *kraj=' ';
+            kraj++;
+            for(i=0;i<razlika;i++) *(kraj+i)=*(rijec+i);
+            //printf("%s\n",pom);
+            while(*s=='.'||*s==' '||*s=='\t'||*s==','||*s=='\n'||(*s>='0'&&*s<='9'))s++;
+            s+=razlika+1;
+            rijec=s;
+            if(*rijec=='\0')break;
+            while(*rijec=='.'||*rijec==' '||*rijec=='\t'||*rijec==','||*rijec=='\n'||(*rijec>='0'&&*rijec<='9'))rijec++;
+        }
+        
+        if(*s=='\0')break;
+        s++;
+    }
+    return pom;
+}
+int main() {
+	char s[100]={" standardna greska "};
+    char *c;
+    c=udvostruci_rijec(s);
+    printf("%s",c);
+	return 0;
+}

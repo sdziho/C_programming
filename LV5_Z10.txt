@@ -1,0 +1,26 @@
+#include <stdio.h>
+#include <math.h>
+int obrnut(int n){
+    int a,temp,desetice,counter;
+    temp=n;
+    a=0;
+    counter=0;
+    while(temp>0){
+        counter++;
+        temp/=10;
+    }
+    temp=n;
+    desetice=pow(10,counter-1);
+    while(temp>0){
+        a+=(temp%10)*desetice;
+        temp/=10;
+        desetice/=10;
+    }
+    return a;
+}
+int main() {
+    int n;
+    scanf("%d",&n);
+	printf("%d", obrnut(n));
+	return 0;
+}

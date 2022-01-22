@@ -1,0 +1,21 @@
+#include <stdio.h>
+
+const char* posljednja_rijec(const char *s){
+    const char *p=s;
+    int flag=0;
+    while(*s!='\0'){
+        flag=0;
+        while(*s==' '){
+            s++;
+            flag=1;
+        }
+        if(flag==1&&*s!='\0')p=s;
+        s++;
+    }
+    return p;
+}
+
+int main() {
+	printf("%s",posljednja_rijec("Danas je fin dan"));
+	return 0;
+}

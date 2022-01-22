@@ -1,0 +1,21 @@
+#include <stdio.h>
+#define BR_EL 100
+int main() {
+    double a,b,c;
+    int n,i;
+    double niz[BR_EL];
+	printf("Unesite koeficijente a, b i c: ");
+    scanf("%lf %lf %lf",&a,&b,&c);
+    do{
+        printf("Unesite n: ");
+        scanf("%d",&n);
+        if(n<=0 || n>100) printf("Greska!\n");
+    }while(n<=0 || n>100);
+    printf("Unesite vrijednosti x: ");
+    for(i=0;i<n;i++) scanf("%lf", &niz[i]);
+    for(i=0;i<n;i++){
+        printf("y[%d]=%g\n",i,a*niz[i]*niz[i]+b*niz[i]+c);
+    }
+
+	return 0;
+}

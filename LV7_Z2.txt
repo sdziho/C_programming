@@ -1,0 +1,29 @@
+#include <stdio.h>
+
+void unesi(char niz[], int velicina){
+    char znak=getchar();
+    if(znak=='\n') znak=getchar();
+    int i=0;
+    while(i<velicina-1&&znak!='\n'){
+        niz[i]=znak;
+        i++;
+        znak=getchar();
+    }
+    niz[i]='\0';
+}
+char *velika(char *s){
+    char *pom=s;
+    while(*pom!='\0'){
+        if(*pom>=97&&*pom<=122)*pom-='a'-'A';
+        pom++;
+    }
+    return s;
+}
+int main() {
+    char s[100];
+    int i;
+	printf("Unesite neki tekst: ");
+    unesi(s,100);
+    printf("%s",velika(s));
+	return 0;
+}

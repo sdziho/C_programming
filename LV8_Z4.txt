@@ -1,0 +1,39 @@
+#include <stdio.h>
+
+struct Ugao{
+    int stepeni,minute,sekunde;
+};
+
+int izbaci(struct Ugao *uglovi, int vel,double x,double y){
+    int i,j;
+    for(i=0;i<vel;i=i+1){
+        double min=uglovi[i].minute/60., sec=uglovi[i].sekunde/3600.;
+        double step=uglovi[i].stepeni;
+        if(step<0){
+            min*=(-1);
+            sec*=(-1);
+        }
+        step+=min+sec;
+        double rad=step*3.1415926/180;
+        if(x<rad&&rad<y){
+            for(j=i;j<vel-1;j++) uglovi[j]=uglovi[j+1];
+            vel--;
+            i--;
+        }
+    }
+    return vel;
+
+}
+int main() {
+	struct Ugao uglovi[]={
+        {100,10,10},
+        {200,20,20},
+        {300,30,30}
+    };
+    int i,vel=3;
+    vel=izbaci(uglovi, 3, 1, 2);
+    for(i=0;i<vel;i++){
+        printf("%d %d %d\n",uglovi[i].stepeni,uglovi[i].minute,uglovi[i].sekunde);
+    }
+	return 0;
+}

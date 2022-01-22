@@ -1,0 +1,35 @@
+#include <stdio.h>
+
+int main() {
+    int i,c1,c2,counter=0,slova=0;
+    long prva,pos1,pok=0;
+	FILE*ulaz=fopen("genetski_kod.txt","r");
+    fseek(ulaz,0,SEEK_END);
+    long vel=ftell(ulaz);
+    if(vel%3!=0||vel<3){printf("Pogresan format\n");return 0;}
+    fseek(ulaz,0,SEEK_SET);
+    for(i=0;i<vel-3;i++){
+        if(counter==0&&i%3!=0)continue;
+        fseek(ulaz,i,SEEK_SET);
+        pos1=ftell(ulaz);
+        c1=getc(ulaz);
+        if(c1!='T'&&c1!='A'&&c1!='C'&&c1!='G'){printf("Pogresan format\n");return 0;}
+        fseek(ulaz,i+3,SEEK_SET);
+        c2=getc(ulaz);
+        if(c2!='T'&&c2!='A'&&c2!='C'&&c2!='G'){printf("Pogresan format\n");return 0;}
+        if(c1==c2){
+            counter++;
+            if(counter==1)prva=pos1;
+            if(counter>slova){
+                slova=counter;
+                pok=prva;
+            }
+        }
+        else counter=0;
+    }
+    fseek(ulaz,pok,SEEK_SET);
+    for(i=0;i<3;i++)printf("%c",getc(ulaz));
+    printf("\n");
+    fclose(ulaz);
+	return 0;
+}

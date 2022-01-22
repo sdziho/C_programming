@@ -1,0 +1,21 @@
+#include <stdio.h>
+int podniz(const int*p1, const int*p2,const int*q1,const int*q2){
+    const int *pom1=q1,*pom2=q2;
+    const int *pomP=p1,*pomQ;
+    int flag,i;
+    while(p2-pomP>0){
+        if(*pomP==*q1){
+            flag=1;
+            pomQ=q1;
+            for(i=1;i<q2-q1;i++){
+                if(*(q1+i)!=*(pomP+i)) flag=0;
+            }
+            if(flag==1) return pomP-p1;
+        }
+        pomP++;
+    }
+    return -1;
+}
+int main() {
+	return 0;
+}

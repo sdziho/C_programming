@@ -1,0 +1,97 @@
+#include <stdio.h>
+
+int generisi_tablice(const char* prethodna,char *nova){
+    const char *kraj=prethodna;
+    int i=0;
+    while(*kraj!='\0'){
+        if(i==0||i==4){
+            if(*kraj!='A'&&*kraj!='E'&&*kraj!='J'&&*kraj!='M'&&*kraj!='O'&&*kraj!='T'&&*kraj!='K')
+                return -1;
+        }
+        else if(i==3||i==5){
+            if(*kraj!='-')return -1;
+        }
+        else{
+            if(*kraj<'0'||*kraj>'9')return -1;
+        }
+        kraj++;
+        i++;
+    }
+    if(kraj-prethodna!=9) return -1;
+    int broj=-'0'+prethodna[8]+(-'0'+prethodna[7])*10+(-'0'+prethodna[6])*100;
+    int broj2=-'0'+prethodna[2]+(prethodna[1]-'0')*10;
+    broj++;
+    broj2++;
+    if(broj<1000){
+        for(i=0;i<6;i++){
+            *(nova+i)=*(prethodna+i);
+        }
+        *(nova+6)='0'+(broj/100)%10;
+        *(nova+7)='0'+(broj/10)%10;
+        *(nova+8)='0'+broj%10;
+        *(nova+9)='\0';
+        return 1;
+    }
+    else if(prethodna[4]!='T'){
+        for(i=0;i<9;i++){
+            if(i>=6) *(nova+i)='0';
+            else *(nova+i)=*(prethodna+i);
+        }
+        *(nova+9)='\0';
+        if(prethodna[4]=='A')nova[4]='E';
+        if(prethodna[4]=='E')nova[4]='J';
+        if(prethodna[4]=='J')nova[4]='K';
+        if(prethodna[4]=='K')nova[4]='M';
+        if(prethodna[4]=='M')nova[4]='O';
+        if(prethodna[4]=='O')nova[4]='T';
+        return 1;
+    }
+    else if(broj2<100){
+        for(i=0;i<9;i++){
+            if(i>=6) *(nova+i)='0';
+            else *(nova+i)=*(prethodna+i);
+        }
+        if(prethodna[4]=='A')nova[4]='E';
+        if(prethodna[4]=='E')nova[4]='J';
+        if(prethodna[4]=='J')nova[4]='K';
+        if(prethodna[4]=='K')nova[4]='M';
+        if(prethodna[4]=='M')nova[4]='O';
+        if(prethodna[4]=='O')nova[4]='T';
+        if(prethodna[4]=='T')nova[4]='A';
+        *(nova+1)='0'+(broj2/10)%10;
+        *(nova+2)='0'+broj2%10;
+        *(nova+9)='\0';
+        return 1;
+    }
+    else if(prethodna[0]!='T'){
+        for(i=0;i<9;i++){
+            if(i>=6) *(nova+i)='0';
+            else if(i==1||i==2)*(nova+i)='0';
+            else *(nova+i)=*(prethodna+i);
+        }
+        *(nova+9)='\0';
+        if(prethodna[4]=='A')nova[4]='E';
+        if(prethodna[4]=='E')nova[4]='J';
+        if(prethodna[4]=='J')nova[4]='K';
+        if(prethodna[4]=='K')nova[4]='M';
+        if(prethodna[4]=='M')nova[4]='O';
+        if(prethodna[4]=='O')nova[4]='T';
+        if(prethodna[4]=='T')nova[4]='A';
+
+        if(prethodna[0]=='A')nova[0]='E';
+        if(prethodna[0]=='E')nova[0]='J';
+        if(prethodna[0]=='J')nova[0]='K';
+        if(prethodna[0]=='K')nova[0]='M';
+        if(prethodna[0]=='M')nova[0]='O';
+        if(prethodna[0]=='O')nova[0]='T';
+        return 1;
+    }
+    
+    return 0;
+}
+int main() {
+    char niz[100];
+	printf("%d\n",generisi_tablice("A99-K-999", niz));
+    printf("%s",niz);
+	return 0;
+}

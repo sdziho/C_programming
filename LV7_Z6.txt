@@ -1,0 +1,118 @@
+#include <stdio.h>
+
+void string2double(const char* string,double *broj){
+    const char*p=string,*provjera=string;
+    double suma,zarez;
+    int desetice=1,counter=0,counter1=0;
+    while(*p>='0'&&*p<='9'&&*p!='\0')p++;
+    const char*pom=--p;
+    suma=0;
+    while(pom>=string){
+        suma+=(*pom-'0')*desetice;
+        desetice*=10;
+        pom--;
+    }
+    if(*(p+1)!='.'){
+        *broj=suma;
+        return;
+    }
+    pom=p+2;
+    zarez=0.1;
+    while(*pom>='0'&&*pom<='9'){
+        suma+=(*pom-'0')*zarez;
+        zarez/=10;
+        pom++;
+    }
+    *broj=suma;
+    return;
+}
+
+char*nadji_zbir(char*string){
+    char*prvi=string,*drugi=string,*treci=string,*s=string,*temp;
+    double a=0,b=1,c=2;
+    int counter=0;
+    //ako je prvi clan broj
+    while(*s!='\0'){
+        if((*s>='0'&&*s<='9')){
+            if(counter==0){
+                prvi=s;
+                string2double(prvi, &a);
+                if(s-string>0){
+                    if(*(s-1)=='-'){
+                        prvi--;
+                        a*=(-1);
+                    }
+                }    
+            }
+            else if(counter==1){
+                drugi=s;
+                string2double(drugi, &b);
+                if(*(s-1)=='-'){
+                    drugi--;
+                    b*=(-1);
+                }
+            }
+            else if(counter==2){
+                treci=s;
+                string2double(treci, &c);
+                if(*(s-1)=='-'){
+                    treci--;
+                    c*=(-1);
+                }
+            }
+            else{
+                prvi=drugi;
+                drugi=treci;
+                treci=s;
+                a=b;
+                b=c;
+                string2double(treci, &c);
+                if(*(s-1)=='-'){
+                    treci--;
+                    c*=(-1);
+                }
+
+            }
+            counter++;
+        }
+        while((*s>='0'&&*s<='9')||*s=='.')s++;
+       
+        if(counter>1){
+            //printf("%lf %d %lf\n",a+b,a+b-c<0.01&&a+b-c>-0.01,c);
+            if(a+b-c<0.001&&a+b-c>-0.001) return prvi;//{printf("DA\n");return prvi;}
+        }
+        s++;
+
+    }
+    return NULL;
+}
+
+void razlike(char *string){
+    char*p=string,*pom=string;
+    int flag=0;
+    while(p){
+        double a,b;
+        p=nadji_zbir(pom);
+        flag=0;
+        if(p==0)break;
+        if(*p=='-'){p++;flag=1;}
+        string2double(p, &a);
+        if(flag==1)a*=(-1);
+        pom=p;
+        while((*pom>='0'&&*pom<='9')||*pom=='.'||*pom=='-'){
+            pom++;
+        }
+        
+        printf("%g",a);
+        char *q=pom;
+        while(*q<'0'||*q>'9')q++;
+        string2double(q, &b);
+        if(*(q-1)=='-')b*=(-1);
+        printf(" - %g",b);
+        printf(" = %g\n",a-b);
+    }
+}
+int main() {
+	razlike("ja 1 msm 2 da je -0.2 plus 1.55 jednako 1.35? ");
+	return 0;
+}

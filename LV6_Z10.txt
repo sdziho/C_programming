@@ -1,0 +1,67 @@
+#include <stdio.h>
+
+void popuni(int mat[100][100],int n){
+    int counter,dole=0,lijevo=0,gore=0,desno=0,i,j,red,kolona;
+    counter=1;
+    while(1){
+        for(j=n-1-desno;j>=lijevo;j--){
+            mat[n-1-dole][j]=counter;
+            counter++;
+            if(counter==n*n+1)break;
+        }
+        dole++;
+        if(counter==n*n+1)break;
+
+        for(i=n-1-dole;i>=gore;i--){
+            mat[i][lijevo]=counter;
+            counter++;
+            if(counter==n*n+1)break;
+        }
+        lijevo++;
+        if(counter==n*n+1)break;
+
+        for(j=lijevo;j<n-desno;j++){
+            mat[gore][j]=counter;
+            counter++;
+            if(counter==n*n+1)break;
+        }
+        gore++;
+        if(counter==n*n+1)break;
+
+        for(i=gore;i<n-dole;i++){
+            mat[i][n-1-desno]=counter;
+            counter++;
+            if(counter==n*n+1)break;
+        }
+        desno++;
+        if(counter==n*n+1)break;
+    }
+    
+
+}
+int main() {
+    //2n-1 puta obidje
+    int n=4,i,j;
+    int mat[100][100]={{0,0,0,0},{0,0,0,0},{0,0,0,0},{0,0,0,0}};
+    popuni(mat,4);
+    for(i=0;i<n;i++){
+        for(j=0;j<n;j++) printf("%4d",mat[i][j]);
+        printf("\n");
+    }
+
+
+    /*int counter,dole=0,lijevo=0,gore=0,desno=0,i,j,red,kolona;
+    counter=1;
+    while(1){
+        for(j=n-1-desno;j>=lijevo;j--)printf("%d",mat[n-1-dole][j]);
+        dole++;
+        if(dole==n/2)break;
+        for(i=n-1-dole;i>=gore;i--)printf("%d",mat[i][lijevo]);
+        lijevo++;
+        for(j=lijevo;j<n-desno;j++)printf("%d",mat[gore][j]);
+        gore++;
+        for(i=gore;i<n-dole;i++)printf("%d",mat[i][n-1-desno]);
+        desno++;
+    }*/
+	return 0;
+}

@@ -1,0 +1,142 @@
+#include <stdio.h>
+
+int main() {
+	double Tparc1,Tparc2,Tpris,Tzad,Tzav;
+    double Bparc1,Bparc2,Bpris,Bzad,Bzav;
+    double Mparc1,Mparc2,Mpris,Mzad,Mzav;
+    double Tukupno,Mukupno,Bukupno;
+    int Tocjena, Mocjena, Bocjena;
+    printf("Unesite bodove za Tarika: \nI parcijalni ispit: ");
+    scanf("%lf",&Tparc1);
+    if(Tparc1>20||Tparc1<0){
+        printf("Neispravan broj bodova");
+        return 0;
+    }
+    printf("II parcijalni ispit: ");
+    scanf("%lf",&Tparc2);
+    
+    if(Tparc2>20||Tparc2<0){
+        printf("Neispravan broj bodova");
+        return 0;
+    }
+    printf("Prisustvo: ");
+    scanf("%lf",&Tpris);
+    
+    if(Tpris>10||Tpris<0){
+        printf("Neispravan broj bodova");
+        return 0;
+    }
+    printf("Zadace: ");
+    scanf("%lf",&Tzad);
+    
+    if(Tzad>10||Tzad<0){
+        printf("Neispravan broj bodova");
+        return 0;
+    }
+    printf("Zavrsni ispit: ");
+    scanf("%lf",&Tzav);
+    
+    if(Tzav>40||Tzav<0){
+        printf("Neispravan broj bodova");
+        return 0;
+    }
+
+    printf("Unesite bodove za Bojana: \nI parcijalni ispit: ");
+    scanf("%lf",&Bparc1);
+    if(Bparc1>20||Bparc1<0){
+        printf("Neispravan broj bodova");
+        return 0;
+    }
+    printf("II parcijalni ispit: ");
+    scanf("%lf",&Bparc2);
+    if(Bparc2>20||Bparc2<0){
+        printf("Neispravan broj bodova");
+        return 0;
+    }
+    printf("Prisustvo: ");
+    scanf("%lf",&Bpris);
+    if(Bpris>10||Bpris<0){
+        printf("Neispravan broj bodova");
+        return 0;
+    }
+    printf("Zadace: ");
+    scanf("%lf",&Bzad);
+    if(Bzad>10||Bzad<0){
+        printf("Neispravan broj bodova");
+        return 0;
+    }
+    printf("Zavrsni ispit: ");
+    scanf("%lf",&Bzav);
+    if(Bzav>40||Bzav<0){
+        printf("Neispravan broj bodova");
+        return 0;
+    }
+
+    printf("Unesite bodove za Mirzu: \nI parcijalni ispit: ");
+    scanf("%lf",&Mparc1);
+    if(Mparc1>20||Mparc1<0){
+        printf("Neispravan broj bodova");
+        return 0;
+    }
+    printf("II parcijalni ispit: ");
+    scanf("%lf",&Mparc2);
+    if(Mparc2>20||Mparc2<0){
+        printf("Neispravan broj bodova");
+        return 0;
+    }
+    printf("Prisustvo: ");
+    scanf("%lf",&Mpris);
+    if(Mpris>10||Mpris<0){
+        printf("Neispravan broj bodova");
+        return 0;
+    }
+    printf("Zadace: ");
+    scanf("%lf",&Mzad);
+    if(Mzad>10||Mzad<0){
+        printf("Neispravan broj bodova.");
+        return 0;
+    }
+    printf("Zavrsni ispit: ");
+    scanf("%lf",&Mzav);
+    if(Mzav>40||Mzav<0){
+        printf("Neispravan broj bodova");
+        return 0;
+    }
+
+    Tukupno=Tparc1+Tparc2+Tpris+Tzad+Tzav;
+    Bukupno=Bparc1+Bparc2+Bpris+Bzad+Bzav;
+    Mukupno=Mparc1+Mparc2+Mpris+Mzad+Mzav;
+
+    if(Tukupno<55) Tocjena=5;
+    else if(Tukupno>=55&&Tukupno<65) Tocjena=6;
+    else if(Tukupno>=65&&Tukupno<75) Tocjena=7;
+    else if(Tukupno>=75&&Tukupno<85) Tocjena=8;
+    else if(Tukupno>=85&&Tukupno<95) Tocjena=9;
+    else if(Tukupno>95) Tocjena=10;
+
+    if(Bukupno<55) Bocjena=5;
+    else if(Bukupno>=55&&Bukupno<65) Bocjena=6;
+    else if(Bukupno>=65&&Bukupno<75) Bocjena=7;
+    else if(Bukupno>=75&&Bukupno<85) Bocjena=8;
+    else if(Bukupno>=85&&Bukupno<95) Bocjena=9;
+    else if(Bukupno>95) Bocjena=10;
+
+    if(Mukupno<55) Mocjena=5;
+    else if(Mukupno>=55&&Mukupno<65) Mocjena=6;
+    else if(Mukupno>=65&&Mukupno<75) Mocjena=7;
+    else if(Mukupno>=75&&Mukupno<85) Mocjena=8;
+    else if(Mukupno>=85&&Mukupno<95) Mocjena=9;
+    else if(Mukupno>95) Mocjena=10;
+
+    if(Tocjena==5&&Mocjena==5&&Bocjena==5) printf("Nijedan student nije polozio.");
+    else if((Tocjena==5&&Mocjena==5)||(Bocjena==5&&Mocjena==5)|| (Tocjena==5&Bocjena==5)) printf("Jedan student je polozio.");
+    else if(Tocjena==5||Mocjena==5||Bocjena==5) printf("Dva studenta su polozila.");
+    else{
+        printf("Sva tri studenta su polozila.\n");
+        if(Tocjena==Mocjena&&Mocjena==Bocjena) printf("Sva tri studenta imaju istu ocjenu.");
+        else if(Tocjena!=Mocjena&&Mocjena!=Bocjena&&Bocjena!=Tocjena)printf("Svaki student ima razlicitu ocjenu.");
+        else printf("Dva od tri studenta imaju istu ocjenu.");
+    }
+
+	return 0;
+}

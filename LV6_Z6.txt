@@ -1,0 +1,17 @@
+#include <stdio.h>
+
+void zamijeni_pokazivace(int **pok1, int **pok2){
+    int *temp=*pok1;
+    *pok1=*pok2;
+    *pok2=temp;
+}
+int main() {
+	int a=10;
+    int b=50;
+    int *pok1=&a;
+    int *pok2=&b;
+    printf("%d %d\n", *pok1,*pok2);
+    zamijeni_pokazivace(&pok1,&pok2);
+    printf("%d %d", *pok1,*pok2);
+	return 0;
+}

@@ -1,0 +1,25 @@
+#include <stdio.h>
+
+struct Kurs{
+    char valuta[5];
+    float vrijednost;
+};
+
+float razmjena(struct Kurs *kurs, int vel, char *string, float novac){
+    int i,j,isti;
+    for(i=0;i<vel;i++){
+        j=0;
+        while(kurs[i].valuta[j]==string[j]){
+            j++;
+            if(string[j]=='\0'&&kurs[i].valuta[j]=='\0') return kurs[i].vrijednost*novac;
+        }
+    }
+    return 0;
+}
+int main() {
+    struct Kurs k[]={
+        {{"EUR"},1.95}
+    };
+    printf("%g",razmjena(k, 1, "EUR", 2));
+	return 0;
+}

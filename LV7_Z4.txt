@@ -1,0 +1,44 @@
+#include <stdio.h>
+
+int string2double(const char* string,double *broj){
+    const char*p=string,*provjera=string;
+    double suma,zarez;
+    int desetice=1,counter=0;;
+    while(*provjera!='\0'){
+        if(*provjera=='.'){
+            provjera++;
+            counter++;
+            if(counter>1) return 0;
+            continue;
+        }
+        if(*provjera<'0'||*provjera>'9') return 0;
+        provjera++;
+    }
+    while(*p!='.'&&*p!='\0')p++;
+    const char*pom=--p;
+    suma=0;
+    while(pom>=string){
+        suma+=(*pom-'0')*desetice;
+        desetice*=10;
+        pom--;
+    }
+    if(*(p+1)=='\0'){
+        *broj=suma;
+        return 1;
+    }
+    pom=p+2;
+    zarez=0.1;
+    while(*pom!='\0'){
+        suma+=(*pom-'0')*zarez;
+        zarez/=10;
+        pom++;
+    }
+    *broj=suma;
+    return 1;
+}
+int main() {
+    double x;
+	int i=string2double("456", &x);
+    printf("%d %g",i,x);
+	return 0;
+}

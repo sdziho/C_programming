@@ -1,0 +1,35 @@
+#include <stdio.h>
+
+int main() {
+    int n,i,j;
+    double niz[100],min;
+    while(1){
+        printf("Unesite broj elemenata niza: ");
+        scanf("%d", &n);
+        if(n<=0||n>100){
+            printf("Unos neispravan!\n");
+            continue;
+        }
+        break;
+    }
+    printf("Unesite %d brojeva: \n",n);
+    for(i=0;i<n;i++){
+        scanf("%lf", &niz[i]);
+    }
+    for(i=0;i<n-1;i++){
+        for(j=i;j<n;j++){
+            if(niz[j]<niz[i]){
+                min=niz[j];
+                niz[j]=niz[i];
+                niz[i]=min;
+                
+            }
+        }
+    }
+    printf("{");
+    for(i=0;i<n;i++){
+        if(i==n-1) printf("%g}", niz[i]);
+        else printf("%g, ", niz[i]);
+    }
+	return 0;
+}

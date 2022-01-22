@@ -1,0 +1,38 @@
+#include <stdio.h>
+#include <math.h>
+
+int main() {
+	double x,suma,bib;
+    int n,i;
+    suma=0;
+
+    while(1){
+        printf("Unesite broj x: ");
+        scanf("%lf",&x);
+        if(x<=-1||x>=1) {
+            printf("Greska.\n");
+            continue;
+        }
+        break;
+    }
+    while(1){
+        printf("Unesite broj n: ");
+        scanf("%d", &n);
+        if(n<=0){
+            printf("Greska.\n");
+            continue;
+        }
+        break;
+    }    
+    for(i=0;i<n;i++){
+        if((i+1)%2==0) suma-=pow(x,i+1)/(i+1);
+        else suma+=pow(x,i+1)/(i+1);
+    }
+    bib=log(1+x);
+    printf("Izracunata vrijednost: %.6f\n",suma);
+    printf("Bibliotecna funkcija: %.6f\n",bib);
+    if(suma==bib) printf("Razlika u postotcima: %.2f%%",0.0);
+    else printf("Razlika u postotcima: %.2f%%",(suma-bib)*100/(bib));
+    
+	return 0;
+}

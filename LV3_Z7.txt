@@ -1,0 +1,26 @@
+#include <stdio.h>
+#define BR_EL 100
+int main() {
+	double niz[BR_EL];
+    int i,n,j,flag,counter;
+    do{
+        printf("Unesite broj clanova niza: ");
+        scanf("%d", &n);
+        if(n<=0 || n>100)printf("Pogresan unos!\n");
+    }while(n<=0 || n>100);
+    printf("Unesite niz: ");
+    for(i=0;i<n;i++) scanf("%lf",&niz[i]);
+    for(i=0;i<n;i++){
+        counter=1;
+        for(j=0;j<n;j++){
+            if(i==j) continue;
+            if(niz[i]==niz[j]) counter++;
+        }
+        if(counter!=2){
+            printf("NE");
+            return 0;
+        }
+    }
+    printf("DA");
+	return 0;
+}

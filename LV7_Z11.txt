@@ -1,0 +1,70 @@
+#include <stdio.h>
+
+char *zamijeni_rijec(char *str, const char*sta, const char*sa_cim,int cs){
+    char *pom=str;
+    int i;
+    while(*pom!='\0'){
+        while(*pom==' ') pom++;
+        char *q=pom;
+        const char *rijec=sta;
+        int flag=0;
+        //cs=0 ignorira velika
+        while(*rijec==*q){
+            rijec++;
+            q++;
+        }
+        if(cs==0){
+            q=pom;
+            rijec=sta;
+            while(*rijec==*q||*rijec-('a'-'A')==*q||*q-('a'-'A')==*rijec){
+                if(*rijec=='\0')break;
+                rijec++;
+                q++;
+            }
+        }
+        if(*rijec=='\0'&&(*q==' '||*q=='\0'||*q=='.'))flag=1;
+        if(flag==1){
+            //zamjeni
+            const char *p=sa_cim;
+            while(*p!='\0')p++;
+            int razlika=p-sa_cim;
+            if(razlika==q-pom){
+                for(i=0;i<razlika;i++){
+                    *(pom+i)=*(sa_cim+i);
+                }
+            }
+            
+            else if(razlika>q-pom){
+                char *kraj=pom;
+                while(*kraj!='\0')kraj++;
+                while(kraj>pom){
+                    *(kraj+razlika-(q-pom))=*kraj;
+                    kraj--;
+                }
+                for(i=0;i<razlika;i++){
+                    *(pom+i)=*(sa_cim+i);
+                }
+            }
+            else if(razlika<q-pom){
+                for(i=0;i<razlika;i++){
+                    *(pom+i)=*(sa_cim+i);
+                }
+                char *kraj=pom+i;
+                while(*kraj!='\0'){
+                    *kraj=*(kraj-razlika+(q-pom));
+                    kraj++;
+                }
+                
+            }
+        }
+        while(*pom!=' '&&*pom!='\0'&&*pom!='.') pom++;
+        if(*pom=='\0')break;
+        pom++;
+    }
+    return str;
+}
+int main() {
+    //char string[100]={"zeko Pije mlijeko"};
+	//printf("%s",zamijeni_rijec(string,"pije","sok",0));
+	return 0;
+}

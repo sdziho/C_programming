@@ -1,0 +1,17 @@
+#include <stdio.h>
+
+void ispisi(int *niz,int n){
+    int i;
+    printf("{");
+    for(i=0;i<n;i++){
+        if(i==n-1) printf("%d", *(niz+i));
+        else printf("%d, ", *(niz+i));
+    }
+    printf("}");
+
+}
+int main() {
+	int niz[]={1,3,2};
+    ispisi(niz,3);
+	return 0;
+}

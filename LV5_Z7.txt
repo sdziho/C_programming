@@ -1,0 +1,25 @@
+#include <stdio.h>
+#include <math.h>
+
+int armstrong(int n){
+    int temp,suma,cifra,counter;
+    suma=0;
+    temp=n;
+    counter=0;
+    while(temp>0){
+        counter++;
+        temp/=10;
+    }
+    temp=n;
+    while(temp>0){
+        cifra=temp%10;
+        suma+=pow(cifra,counter);
+        temp/=10;
+    }
+    if(suma==n) return 1;
+    else return 0;
+}
+int main() {
+	printf("%d",armstrong(371));
+	return 0;
+}

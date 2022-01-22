@@ -1,0 +1,45 @@
+#include <stdio.h>
+
+void unesi(char niz[], int velicina){
+    char znak=getchar();
+    int i=0;
+    while(i<velicina-1&&znak!='\n'){
+        niz[i]=znak;
+        i++;
+        znak=getchar();
+    }
+    niz[i]='\0';
+}
+int main() {
+    int c=-1,counter=1,prethodni,pokazivac,novi,cMax=0,i,set_p=0;
+	char ulaz[100],izlaz[100];
+    unesi(ulaz,100);
+    unesi(izlaz,100);
+    FILE *input=fopen(ulaz,"r");
+    if(input==NULL)return 0;
+    FILE *output=fopen(izlaz,"w");
+    if(output==NULL)return 0;
+    do{
+        prethodni=c;
+        if(counter==1)pokazivac=ftell(input);
+        c=fgetc(input);
+        if(prethodni!=-1&&prethodni+1==c){
+            counter++;
+        }
+        else{
+            if(counter>cMax){
+                cMax=counter;
+                set_p=pokazivac;
+            }
+            counter=1;
+        }
+    }while(c!=EOF);
+    fseek(input,set_p-1,SEEK_SET);
+    for(i=0;i<cMax;i++){
+        c=fgetc(input);
+        fputc(c,output);
+    }
+    fclose(input);
+    fclose(output);
+	return 0;
+}

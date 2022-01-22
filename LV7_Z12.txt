@@ -1,0 +1,57 @@
+#include <stdio.h>
+
+char *zamjena_rijeci(char*tekst,char**rijeci,char**zamjene,int broj_rijeci){
+    char *pom=tekst;
+    int i,k;
+    while(*pom!='\0'){
+        while(*pom==' ') pom++;
+        for(k=0;k<broj_rijeci;k++){
+            char *q=pom;
+            char *rijec=*(rijeci+k);
+            int flag=0;
+            while(*rijec==*q){
+                if(*rijec=='\0')break;
+                rijec++;
+                q++;
+            }
+            if(*rijec=='\0'&&(*q==' '||*q=='\0'))flag=1;
+            if(flag==1){
+                const char *p=*(zamjene+k);
+                while(*p!='\0')p++;
+                int razlika=p-*(zamjene+k);
+                if(razlika==q-pom){
+                    for(i=0;i<razlika;i++) *(pom+i)=*(*(zamjene+k)+i);
+
+                }
+                else if(razlika>q-pom){
+                    char *kraj=pom;
+                    while(*kraj!='\0')kraj++;
+                    while(kraj>pom){
+                        *(kraj+razlika-(q-pom))=*kraj;
+                        kraj--;
+                    }
+                    for(i=0;i<razlika;i++) *(pom+i)=*(*(zamjene+k)+i);
+                }
+                else if(razlika<q-pom){
+                    for(i=0;i<razlika;i++) *(pom+i)=*(*(zamjene+k)+i);
+                    char*kraj=pom+i;
+                    while(*kraj!='\0'){
+                        *kraj=*(kraj-razlika+(q-pom));
+                        kraj++;
+                    }
+                }
+            }
+        }
+        while(*pom!=' '&&*pom!='\0')pom++;
+        if(*pom=='\0')break;
+        //pom++;
+    }
+    return tekst;
+}
+int main() {
+    char*rijeci[2]={"beli","sneg"};
+    char*zamjene[2]={"bijeli","snijeg"};
+    char tekst[100]="beli sneg je pokrio beli breg";
+    printf("%s",zamjena_rijeci(tekst, rijeci, zamjene, 2));
+	return 0;
+}

@@ -1,0 +1,47 @@
+#include <stdio.h>
+#include <math.h>
+#define epsilon 10e-06   //0.002643
+int main() {
+	float vrijeme1=0;
+    int i=0,sati,min,sec,counter=0,zadnje=0;
+    char c;
+    FILE *ulaz=fopen("mjerenja.txt","r");
+    if(ulaz==NULL){
+        printf("Nije uspjelo otvaranje datoteke mjerenja.txt");
+        return 0;
+    }
+    FILE *ulaz2=fopen("zadane.dat","rb");
+    if(ulaz2==NULL){
+        printf("Nije uspjelo otvaranje datoteke zadane.dat");
+        return 0;
+    }
+    FILE *izlaz=fopen("provjera.txt","w");
+    if(izlaz==NULL){
+        printf("Nije uspjelo otvaranje datoteke provjera.dat");
+        return 0;
+    }
+    double niz[10000];
+    int ucitano=fread(niz,sizeof(double),10000,ulaz2);
+    while(fscanf(ulaz,"%f,",&vrijeme1)==1){
+        if(counter>=ucitano)break;
+        sati=i/3600;
+        min=(i-3600*sati)/60;
+        sec=(i-3600*sati-min*60);
+        //printf("%g ",(-vrijeme1+niz[counter])/niz[counter]-0.05);
+        if((niz[counter]==0&&vrijeme1==0)||(fabs(vrijeme1-niz[counter])/niz[counter]-0.05<epsilon)){
+            fprintf(izlaz,"%d:%02d:%02d %.2f\n",9+sati,min,sec,vrijeme1);
+            zadnje=i;
+        }
+        if(i-zadnje==600){
+            fprintf(izlaz,"%d:%02d:%02d %.2f\n",9+sati,min,sec,vrijeme1);
+            zadnje=i;
+        }
+        i+=15;
+        counter++;
+    }
+    
+    fclose(izlaz);
+    fclose(ulaz2);
+    fclose(ulaz);
+	return 0;
+}

@@ -1,0 +1,30 @@
+#include <stdio.h>
+
+char* popuni_lijevo(char* str, int n){
+    char*p=str,*kraj=str;
+    while(*kraj!='\0')kraj++;
+    if(n<(kraj-str)) return str;
+    int razlika=n-(kraj-str),i;
+    do{
+        *(kraj+razlika)=*kraj;
+        kraj--;
+    }while(kraj>=str);
+    for(i=0;i<razlika;i++)*(str+i)=' ';
+    return str;
+}
+
+char* popuni_desno(char* str, int n){
+    char*p=str,*kraj=str;
+    while(*kraj!='\0')kraj++;
+    if(n<(kraj-str)) return str;
+    int razlika=n-(kraj-str),i;
+    *(kraj+razlika)=*kraj;
+    for(i=0;i<razlika;i++)*(kraj+i)=' ';
+    return str;
+}
+
+int main() {
+    char n1[100]={"Bosna"};
+	printf("%s",popuni_lijevo(n1, 15));
+	return 0;
+}

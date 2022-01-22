@@ -1,0 +1,49 @@
+#include <stdio.h>
+#include <math.h>
+
+double stepen(double x){
+    static int counter=0, prvi_put=1;
+    static double broj;
+    double proizvod;
+    int i;
+    if(prvi_put==1){
+         broj=x;
+         prvi_put=0;
+    }
+    if(broj==x) counter++;
+    else counter=1;
+    broj=x;
+    proizvod=1;
+    for(i=0;i<counter;i++){
+        proizvod*=x;
+    }
+    return proizvod;
+}
+
+void stepenuj_niz(double A[],int s[],int duzina){
+    int i,j;
+    double temp;
+    for(i=0;i<duzina;i++){
+        for(j=0;j<s[i];j++)temp=stepen(A[i]);
+        stepen(0);
+        A[i]=temp;
+    }
+}
+int main() {
+    double proizvod,A[1000];
+    int i,n,s[1000];
+    proizvod=1;
+    printf("Unesite duzinu niza: ");
+    scanf("%d",&n);
+    printf("Unesite niz A: ");
+    for(i=0;i<n;i++) scanf("%lf",&A[i]);
+    printf("Unesite niz s: ");
+    for(i=0;i<n;i++) scanf("%d",&s[i]);
+    stepenuj_niz(A,s,n);
+    printf("Stepenovani niz A: ");
+    for(i=0;i<n;i++){
+        printf("%g ", A[i]);
+    }
+    
+	return 0;
+}

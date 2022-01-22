@@ -1,0 +1,16 @@
+#include <stdio.h>
+int prva_cifra(int n){
+    int temp,cifra;
+    cifra=0;
+    temp=n;
+    if(temp<0) temp=temp*(-1);
+    while(temp>0){
+        cifra=temp%10;
+        temp/=10;
+    }
+    return cifra;
+}
+int main() {
+	printf("Lekcija 5: Funkcije, Prva cifra");
+	return 0;
+}

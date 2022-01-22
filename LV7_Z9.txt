@@ -1,0 +1,29 @@
+#include <stdio.h>
+int periodican(const char*string){
+    const char *pom=string,*kraj=string;
+    int counter=0,i,j,k;
+    while(*kraj!='\0')kraj++;
+    for(i=1;i<(kraj-string);i++){
+        pom=string+i;
+        int razlika=pom-string;
+        int flag=0;
+        for(j=0;j<(kraj-string)-razlika;j+=razlika){
+            for(k=0;k<razlika;k++){
+                if(pom+j+k>=kraj)break;
+                if(*(string+k)==*(pom+j+k)) flag=1;
+                else {
+                    flag=0;
+                    break;
+                }
+                
+            }
+            if(flag==0)break;
+        }
+        if(flag==1) return razlika;
+    }
+    return 0;
+}
+int main() {
+	printf("%d",periodican("ababa"));
+	return 0;
+}

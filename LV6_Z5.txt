@@ -1,0 +1,15 @@
+#include <stdio.h>
+#include <math.h>
+int minmax2x(float *niz, int vel){
+    double max=*niz,min=*niz;
+    int i;
+    for(i=1;i<vel;i++){
+        if(fabs(*(niz+i))>max) max=fabs(*(niz+i));
+        if(fabs(*(niz+i))<min) min=fabs(*(niz+i));
+    }
+    if(max>2*min) return 1;
+    else return 0;
+}
+int main() {
+	return 0;
+}

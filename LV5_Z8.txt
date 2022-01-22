@@ -1,0 +1,14 @@
+#include <stdio.h>
+int potpun_kvadrat(int a){
+    int potpun=0,i,broj;
+    broj=a;
+    if(a<0) broj=broj*(-1);
+    for(i=0;i<=broj;i++){
+        if(i*i==broj) potpun=1;
+    }
+    return potpun;
+}
+int main() {
+	printf("%d", potpun_kvadrat(64));
+	return 0;
+}

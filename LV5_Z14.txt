@@ -1,0 +1,25 @@
+#include <stdio.h>
+
+int drugi(int niz[], int vel){
+    int i,max=0,max1=0,j,usao=0;
+    for(i=1;i<vel;i++){
+        if(niz[i]>niz[max]) max=i;
+    }
+    if(max!=0) max1=0;
+    else max1=1;
+    for(i=0;i<vel;i++){
+        if(i==max||niz[max]==niz[i]) continue;
+        usao=1;
+        if(niz[i]>niz[max1]) max1=i;
+    }
+    
+    if(usao==0||vel<2) return -1;
+    return max1;
+}
+int main() {
+    int niz[100],i;
+    printf("Unesite niz brojeva: ");
+    for(i=0;i<7;i++) scanf("%d",&niz[i]);
+	printf("Indeks drugog po velicini je: %d",drugi(niz,7));
+	return 0;
+}

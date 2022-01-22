@@ -1,0 +1,30 @@
+#include <stdio.h>
+int proste_sume(int *niz1, int n, int *niz2, int kapacitet){
+    int i,suma,counter=0,temp,j,prost;
+    for(i=0;i<n;i++){
+        temp=*(niz1+i);
+        if(temp<0) temp*=(-1);
+        if(temp==0||temp==1) continue;
+        suma=0;
+        while(temp>0){
+            suma+=temp%10;
+            temp/=10;
+        }
+        if(suma==1||suma==0) continue;
+        prost=1;
+        for(j=2;j<suma;j++){
+            if(suma%j==0) {
+                prost=0;
+                break;
+            }
+        }
+        if(prost==1&&counter<kapacitet){
+            *(niz2+counter)=*(niz1+i);
+            counter++;
+        }
+    }
+    return counter;
+}
+int main() {
+	return 0;
+}

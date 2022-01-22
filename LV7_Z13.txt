@@ -1,0 +1,174 @@
+#include <stdio.h>
+
+char *kompresuj(char *s){
+    char*pom=s;
+    int i;
+    while(*pom!='\0'){
+        char *p=pom;
+        int counter=0;
+        if(*p=='!'){
+            char *kraj=p;
+            while(*kraj!='\0')kraj++;
+            while(kraj>=p){
+                *(kraj+1)=*kraj;
+                kraj--;
+            }
+            pom=p+2;
+            continue;
+        }
+
+
+        while(*p==*pom){
+            p++;
+            counter++;
+            if(*p=='\0') break;
+        }
+        
+        if(counter>3){
+            *(pom+1)=*pom;
+            *pom='!';
+            int temp=counter;
+            int br_cifara=0;
+            while(temp>0){
+                br_cifara++;
+                temp/=10;
+            }
+            temp=counter;
+            for(i=br_cifara-1;i>=0;i--){
+                *(pom+2+i)='0'+temp%10;
+                temp/=10;
+            }
+            pom+=2+br_cifara;
+            
+            p=pom;
+            while(*p!='\0'){
+                *p=*(p+counter-(2+br_cifara));
+                if(*p=='\0')break;
+                p++;
+            }
+            continue;
+        }
+        else if(counter==1){
+            p=pom;
+            if(*p>='0'&&*p<='9'){
+                char *kraj=p;
+                while(*kraj!='\0')kraj++;
+                while(kraj>=p){
+                    *(kraj+2)=*kraj;
+                    kraj--;
+                }
+                *(p+1)=*p;
+                *p='!';
+                *(p+2)='1';
+                pom=p+3;
+                continue;
+            }
+        }
+        else if(counter==2){
+            p=pom;
+            if(*p>='0'&&*p<='9'){
+                char *kraj=p;
+                while(*kraj!='\0')kraj++;
+                while(kraj>=p){
+                    *(kraj+1)=*kraj;
+                    kraj--;
+                }
+                *(p+1)=*p;
+                *p='!';
+                *(p+2)='2';
+                pom=p+3;
+                continue;
+            }
+        }
+        else if(counter==3){
+            p=pom;
+            if(*p>='0'&&*p<='9'){
+                *(p+1)=*p;
+                *p='!';
+                *(p+2)='3';
+                pom=p+3;
+                continue;
+            }
+        }
+        
+        if(*pom=='\0')break;
+        pom++;
+    }
+    
+    
+    return s;
+}
+
+char *dekompresuj(char *s){
+    char *pom=s;
+    int i;
+    while(*pom!=0){
+        if(*pom=='!'){
+            char *p=pom+1;
+            if(*p=='!'){
+                char *kraj=p;
+                while(*kraj!='\0'){
+                    *(kraj)=*(kraj+1);
+                    kraj++;
+                }
+                pom++;
+                continue;
+            }
+            else {
+                
+                    char *broj=p+1;
+                    int suma=0;
+                    while(*broj>='0'&&*broj<='9'){
+                        suma*=10;
+                        suma+=*broj-'0';
+                        broj++;
+                    }
+                    char *kraj=pom;
+                    if(suma==1){
+                        *(pom)=*p;
+                        kraj++;
+                        while(*kraj!='\0'){
+                            *kraj=*(kraj+2);
+                            kraj++;
+                        }
+                        pom++;
+                        continue;
+                    }
+                    else if(suma==2){
+                        *(pom)=*p;
+                        *(pom+1)=*p;
+                        kraj+=2;
+                        while(*kraj!='\0'){
+                            *kraj=*(kraj+1);
+                            kraj++;
+                        }
+                        pom+=2;
+                        continue;
+                    }
+                    while(*kraj!='\0')kraj++;
+                    while(kraj>pom){
+                        *(kraj+suma-(broj-p+1))=*kraj;
+                        kraj--;
+                    }
+                    for(i=0;i<suma;i++){
+                        *(pom+i)=*p;
+                    }
+                    pom+=suma;
+                    //printf("%s",pom);
+                    continue;
+                
+                
+            }
+        }
+
+        pom++;
+    }
+
+    return s;
+}
+int main() {
+    char niz[100]="+++111144";
+	printf("%s\n",kompresuj(niz));
+    printf("%s\n",dekompresuj(niz));
+	return 0;
+}

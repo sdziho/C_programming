@@ -1,0 +1,36 @@
+#include <stdio.h>
+
+int main() {
+    int c,max=0,minus=0,prvi_put=1;
+    FILE *ulaz=fopen("zadatak.txt","r");
+    if(ulaz==NULL){
+        printf("Datoteka ne postoji");
+        return 0;
+    }
+    FILE *izlaz=fopen("rjesenje.txt","w");
+    do{
+        c=getc(ulaz);
+        int suma=0;
+        minus=0;
+        int uso=0;
+        while(c>='0'&&c<='9'||c=='-'){
+            if(c!='-'){
+                suma*=10;
+                suma+=(c-'0');
+                uso=1;
+            }
+            else minus=1;
+            c=getc(ulaz);
+        }
+        if(minus==1)suma*=(-1);
+        if(prvi_put==1&&uso==1){max=suma;prvi_put=0;}
+        else{
+            if(suma>max&&uso==1)max=suma;
+        }
+        
+    }while(c!=EOF);
+    fprintf(izlaz,"%d",max);
+	fclose(ulaz);
+    fclose(izlaz);
+	return 0;
+}
